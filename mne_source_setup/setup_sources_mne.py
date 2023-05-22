@@ -9,7 +9,7 @@ def make_source_spaces(subject, sourcepath):
 
     #oct6 takes too long, oct5 slow but managable
     
-    myss = mne.setup_source_space(subject,'oct5', surface='white', n_jobs=4)
+    myss = mne.setup_source_space(subject,'oct6', surface='white', n_jobs=4)
     vol_src = mne.setup_volume_source_space(subject)
     
     mne.write_source_spaces(subject + '-src.fif',myss, overwrite=True)
@@ -22,7 +22,7 @@ def make_watershed(subject, sourcepath):
 
 def make_bem_models(subject, sourcepath):
 
-    model = mne.make_bem_model(subject, ico=4)
+    model = mne.make_bem_model(subject, conductivity=[0.3])
     bem_sol = mne.make_bem_solution(model)
     
     mne.write_bem_surfaces(subject + '-bem.fif', model, overwrite=True)
